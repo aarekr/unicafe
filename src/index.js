@@ -19,50 +19,45 @@ const App = () => {
   return(
     <div>
       <h2>give feedback</h2>
-      <p>
-        <Button onClick={handleGoodClick} text='good' />
-        <Button onClick={handleNeutralClick} text='neutral' />
-        <Button onClick={handleBadClick} text='bad' />
-      </p>
-
+      <Button onClick={handleGoodClick} text='good' />
+      <Button onClick={handleNeutralClick} text='neutral' />
+      <Button onClick={handleBadClick} text='bad' />
       <h2>statistics</h2>
       <Statistics good={good} neutral={neutral} bad={bad} />
-      
     </div>
   )
 }
 
 const Statistics = ({ good, neutral, bad}) => {
-  if(good+neutral+bad == 0){
+  const total = good+neutral+bad
+  if(total === 0){
     return(
-      <div>
-        No feedback given
-      </div>
+      <div>No feedback given</div>
     )
   }
   return(
     <div>
-      <StatisticLine text="good" value ={good} />
-      <StatisticLine text="neutral" value ={neutral} />
-      <StatisticLine text="bad" value ={bad} />
-      <StatisticLine text="all" value ={good + neutral + bad} />
-      <StatisticLine text="average" value ={(1*good+0*neutral-1*bad)/(good + neutral + bad)} />
-      <StatisticLine text="positive" value ={100*good/(good + neutral + bad)} />
+      <StatisticLine text1="good" text2="neutral" text3="bad" text4="all" text5="average" text6="positive"
+          value1={good} value2={neutral} value3={bad} 
+          value4={total} value5={(1*good+0*neutral-1*bad) / total} 
+          value6={100*(good / total)} />
     </div>
   )
 }
 
-const StatisticLine = ({ text, value}) => {
-  if(text === "positive") {
-    return(
-      <div>
-      {text}{' '}{value}{' %'}
-    </div>
-    )
-  }
+const StatisticLine = (props) => {
   return(
     <div>
-      {text} {value}
+      <table>
+        <tbody>
+          <tr><td>{props.text1}</td><td>{props.value1}</td></tr>
+          <tr><td>{props.text2}</td><td>{props.value2}</td></tr>
+          <tr><td>{props.text3}</td><td>{props.value3}</td></tr>
+          <tr><td>{props.text4}</td><td>{props.value4}</td></tr>
+          <tr><td>{props.text5}</td><td>{props.value5}</td></tr>
+          <tr><td>{props.text6}</td><td>{props.value6}{' %'}</td></tr>
+        </tbody>
+      </table>
     </div>
   )
 }
