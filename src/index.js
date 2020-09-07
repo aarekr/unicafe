@@ -25,6 +25,15 @@ const App = () => {
         <button onClick={handleBadClick}>bad</button>
       </p>
 
+      <Statistics good={good} neutral={neutral} bad={bad} />
+      
+    </div>
+  )
+}
+
+const Statistics = ({ good, neutral, bad}) => {
+  return(
+    <div>
       <h2>statistics</h2>
       <p>
         good {good} <br/>
